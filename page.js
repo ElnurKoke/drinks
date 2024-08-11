@@ -2,23 +2,32 @@ function getParameterByName(name) {
     const url = new URL(window.location.href);
     return url.searchParams.get(name);
 }
-const id = getParameterByName('id');
-console.log(id);
-document.getElementById('container').innerHTML = generateHTMLbyID(id); 
 
-function generateHTMLbyID(id){
-    return `
-        <p>ID напитка:${id}</p>
-        <h3>Name: нет скороо</h3>
-        <p>Состав: пусто скороо</p>
-        <ul>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>soon</li>
-        </ul>
-        <p>Картинка: пусто</p>
-        <p>Приготовление: нет</p>
-    `
+function generateHTMLbyID(id) {
+    // Assuming drink.json is accessible via a URL
+    fetch('drink.json')
+        .then(response => response.json())
+        .then(data => {
+            const drink = data.find(item => item.id == id);
+            if (drink) {
+                const container = document.getElementById('container');
+                container.innerHTML = `
+                    <h1>${drink.name}</h1>
+                    <img src="${drink.imageURL}" alt="${drink.name}">
+                    <p>Temperature: ${drink.temperature}</p>
+                    <p>Composition: ${drink.composition.join(', ')}</p>
+                    <p>Preparation: ${drink.preparation}</p>
+                    <p>Price: ${drink.price.join(', ')}</p>
+                `;
+            } else {
+                document.getElementById('container').innerHTML = '<p>Drink not found</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching the drink data:', error);
+            document.getElementById('container').innerHTML = '<p>Error loading drink data</p>';
+        });
 }
+
+const id = getParameterByName('id');
+generateHTMLbyID(id);

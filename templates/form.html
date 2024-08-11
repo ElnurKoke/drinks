@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit Drink</title>
+
+</head>
+<body>
+    <h1>Submit Drink</h1>
+    <form action="/submit" method="post">
+        <label for="id">ID:</label>
+        <input type="text" id="id" name="id"><br>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br>
+        <label for="imageURL">Image URL:</label>
+        <input type="text" id="imageURL" name="imageURL"><br>
+        <label for="temperature">Temperature:</label>
+        <input type="text" id="temperature" name="temperature"><br>
+        
+        <label for="composition">Composition:</label>
+        <div id="compositionContainer">
+            <input type="text" name="composition[]"><br>
+        </div>
+        <button type="button" onclick="addField('compositionContainer')">Add Composition</button><br>
+        
+        <label for="preparation">Preparation:</label>
+        <input type="text" id="preparation" name="preparation"><br>
+        
+        <label for="price">Price:</label>
+        <div id="priceContainer">
+            <input type="text" name="price[]"><br>
+        </div>
+        <button type="button" onclick="addField('priceContainer')">Add Price</button><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        function addField(containerId) {
+            var container = document.getElementById(containerId);
+            var input = document.createElement("input");
+            input.type = "text";
+            input.name = "composition[]";
+            container.appendChild(input);
+            container.appendChild(document.createElement("br"));
+        }
+        </script>
+</body>
+</html>
