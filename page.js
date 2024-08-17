@@ -14,10 +14,10 @@ function generateHTMLbyID(id) {
                 container.innerHTML = `
                     <h1>${drink.name}</h1>
                     <img src="${drink.imageURL}" alt="${drink.name}">
+                    <p>Price: ${drink.price.join(', ')}</p>
                     <p>Temperature: ${drink.temperature}</p>
                     <p>Composition: ${drink.composition.join(', ')}</p>
                     <p>Preparation: ${drink.preparation}</p>
-                    <p>Price: ${drink.price.join(', ')}</p>
                 `;
             } else {
                 document.getElementById('container').innerHTML = '<p>Drink not found</p>';
